@@ -1,46 +1,37 @@
 package it.S5D1.S5D1.configuration;
 
-
 import it.S5D1.S5D1.beans.Drink;
+import it.S5D1.S5D1.beans.Pizza;
 import it.S5D1.S5D1.beans.Topping;
 import it.S5D1.S5D1.enumerating.TipoDrink;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
 @Configuration
-
 public class AppConfig {
 
-    @Bean
-
-    public Drink getWater(){
-        Drink water = new Drink();
-        water.setTipoDrink(TipoDrink.ANALCOLICO);
-        water.setCalorie(0);
-        water.setPrezzo(1);
-        water.setNome("Water");
-        return water;
+    public static Pizza margherita() {
+        Pizza p = new Pizza("Margherita", 4.50, 1104);
+        return p;
     }
 
-    @Bean(name = "tomato")
-    @Primary
-    public Topping getTomato(){
-        Topping tomato = new Topping();
-        tomato.setNome("Tomato");
-        tomato.setPrezzo(1);
-        tomato.setCalorie(100);
-        tomato.setGlutenFree(true);
-        return tomato;
+    public static Pizza diavola() {
+        Pizza p = new Pizza("Diavola", 5.50, 1350);
+        return p;
     }
 
-    @Bean(name = "mozzarella")
-    public Topping getMozzarella(){
-        Topping mozzarella = new Topping();
-        mozzarella.setNome("Mozzarella");
-        mozzarella.setPrezzo(1);
-        mozzarella.setCalorie(200);
-        mozzarella.setGlutenFree(true);
-        return mozzarella;
+    public static Topping salame() {
+        return new Topping("Salame Piccante", 1.00, 86);
+    }
+
+    public static Drink cola() {
+        return new Drink("Coca-Cola", 2.50, 150, TipoDrink.ANALCOLICO);
+    }
+
+    public static Drink acqua() {
+        return new Drink("Acqua Naturale", 1.00, 0, TipoDrink.ANALCOLICO);
+    }
+
+    public static Drink birra() {
+        return new Drink("Birra", 3.50, 230, TipoDrink.ALCOLICO);
     }
 }

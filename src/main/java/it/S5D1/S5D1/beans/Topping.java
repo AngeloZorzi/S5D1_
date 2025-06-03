@@ -1,12 +1,15 @@
 package it.S5D1.S5D1.beans;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @NoArgsConstructor
-@ToString(callSuper = true)
-public class Topping extends Prodotto{
-    private boolean glutenFree;
+@EqualsAndHashCode(callSuper = true)
+public class Topping extends VoceMenu {
+
+    public Topping(String nome, double prezzo, int calorie) {
+        super(nome, prezzo, calorie);
+    }
 }

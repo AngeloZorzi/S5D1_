@@ -1,39 +1,58 @@
 package it.S5D1.S5D1;
 
-
-import it.S5D1.S5D1.beans.Drink;
-import it.S5D1.S5D1.beans.Pizza;
-import it.S5D1.S5D1.beans.Topping;
+import it.S5D1.S5D1.beans.*;
+import it.S5D1.S5D1.beans.Menu;
+import it.S5D1.S5D1.beans.Ordine;
+import it.S5D1.S5D1.beans.Tavolo;
+import it.S5D1.S5D1.configuration.AppConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
-
-@Order(1)
 public class Runner implements CommandLineRunner {
+
+    private static final Logger logger = LoggerFactory.getLogger(Runner.class);
 
     @Override
     public void run(String... args) throws Exception {
 
-        AnnotationConfigApplicationContext ctx =
-                new AnnotationConfigApplicationContext(S5D1Application.class);
+        Menu menu = new Menu();
+        Pizza margherita = AppConfig.margherita();
+        Pizza diavola = AppConfig.diavola();
+        diavola.addTopping(AppConfig.salame());
 
-        Drink water = ctx.getBean(Drink.class);
+        Drink acqua = AppConfig.acqua();
+        Drink cola = AppConfig.cola();
 
-        System.out.println(water);
+        menu.addVoce(margherita);
+        menu.addVoce(diavola);
+        menu.addVoce(acqua);
+        menu.addVoce(cola);
 
-        Topping t1 = ctx.getBean("mozzarella", Topping.class);
 
-        System.out.println(t1);
+        Tavolo tavolo = new Tavolo(1, 4, 2.0);  // numero, max coperti, costo coperto
 
-        Topping t2 = ctx.getBean("tomato",Topping.class);
 
-        System.out.println(t2);
+        Ordine ordine = new Ordine(2, tavolo);  // 2 coperti
+        ordine.aggiungiElemento(margherita);
+        ordine.aggiungiElemento(diavola);
+        ordine.aggiungiElemento(cola);
 
-        Pizza p = ctx.getBean(Pizza.class);
 
-        System.out.println(p);
+        logger.info("====== DETTAGLI ORDINE ======");
+        logger.info("Numero ordine: {}", ordine.getNumeroOrdine());
+        logger.info("Tavolo: {}", ordine.getTavolo().getNumero());
+        logger.info("Coperti: {}", ordine.getCoperti());
+        logger.info("Stato: {}", ordine.getStato());
+        logger.info("Ora acquisizione: {}", ordine.getOraAcquisizione());
+
+        logger.info("Elementi ordinati:");
+        ordine.getElementi().forEach(e ->
+                logger.info(" - {} (€{})", e.getNome(), e.getPrezzo())
+        );
+
+        logger.info("TOTALE: €{}", ordine.getTotale());
     }
 }
