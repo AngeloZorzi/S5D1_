@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 public class Topping extends VoceMenu {
 
-    public Topping(String nome, double prezzo, int calorie) {
+    public Topping(String nome, double prezzo, double calorie) {
         super(nome, prezzo, calorie);
     }
 }

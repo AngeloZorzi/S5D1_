@@ -24,7 +24,6 @@ public class Ordine {
         this.oraAcquisizione = LocalTime.now();
         this.coperti = coperti;
         this.tavolo = tavolo;
-        this.tavolo.occupa();
     }
 
     public void aggiungiElemento(VoceMenu voce) {

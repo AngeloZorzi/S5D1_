@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public abstract class VoceMenu {
     private String nome;
     private double prezzo;
-    private int calorie;
+    private double calorie;
 }
