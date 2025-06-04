@@ -1,12 +1,10 @@
 package it.S5D1.S5D1;
 
 import it.S5D1.S5D1.beans.*;
-import it.S5D1.S5D1.beans.Menu;
-import it.S5D1.S5D1.beans.Ordine;
-import it.S5D1.S5D1.beans.Tavolo;
 import it.S5D1.S5D1.configuration.AppConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -15,31 +13,28 @@ public class Runner implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(Runner.class);
 
+    @Autowired private Pizza margherita;
+    @Autowired private Pizza diavola;
+    @Autowired private Topping salame;
+    @Autowired private Drink cola;
+    @Autowired private Drink acqua;
+    @Autowired private Tavolo tavolo;
+
     @Override
     public void run(String... args) throws Exception {
 
+        diavola.addTopping(salame);
+
         Menu menu = new Menu();
-        Pizza margherita = AppConfig.margherita();
-        Pizza diavola = AppConfig.diavola();
-        diavola.addTopping(AppConfig.salame());
-
-        Drink acqua = AppConfig.acqua();
-        Drink cola = AppConfig.cola();
-
         menu.addVoce(margherita);
         menu.addVoce(diavola);
-        menu.addVoce(acqua);
         menu.addVoce(cola);
+        menu.addVoce(acqua);
 
-
-        Tavolo tavolo = new Tavolo(1, 4, 2.0);  // numero, max coperti, costo coperto
-
-
-        Ordine ordine = new Ordine(2, tavolo);  // 2 coperti
+        Ordine ordine = new Ordine(2, tavolo);
         ordine.aggiungiElemento(margherita);
         ordine.aggiungiElemento(diavola);
         ordine.aggiungiElemento(cola);
-
 
         logger.info("====== DETTAGLI ORDINE ======");
         logger.info("Numero ordine: {}", ordine.getNumeroOrdine());

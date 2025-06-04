@@ -1,9 +1,16 @@
 package it.S5D1.S5D1.beans;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Tavolo {
     private int numero;
     private int maxCoperti;
-    private boolean occupato;
+    private boolean occupato = false;
     private double costoCoperto;
 
     public Tavolo(int numero, int maxCoperti, double costoCoperto) {
@@ -19,21 +26,5 @@ public class Tavolo {
 
     public void libera() {
         this.occupato = false;
-    }
-
-    public boolean isOccupato() {
-        return occupato;
-    }
-
-    public double getCostoCoperto() {
-        return costoCoperto;
-    }
-
-    public int getNumero() {
-        return numero;
-    }
-
-    public int getMaxCoperti() {
-        return maxCoperti;
     }
 }
